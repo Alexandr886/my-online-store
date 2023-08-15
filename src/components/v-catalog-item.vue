@@ -1,10 +1,10 @@
 <template>
   <div class="v-catalog-item">
     <img class="v-catalog-item__image" :src=" require('../assets/images/' + product_data.image)" alt="picture for the course">
-    <p class="v-catalog-item__name">Специальность: {{ product_data.name }}</p>
-    <p class="v-catalog-item__price">Стоимость: {{ product_data.price }}</p>
-    <p class="v-catalog-item__about">О курсе: {{product_data.about}}</p>
-    <button class="v-catalog-item__add-to-card-btn" @click="sendDataParent">Добавить в корзину</button>
+    <p class="v-catalog-item__name"><span>Специальность:</span> {{ product_data.name }}</p>
+    <p class="v-catalog-item__price"><span>Стоимость:</span> {{ product_data.price }}</p>
+    <p class="v-catalog-item__about"><span>О курсе:</span> {{product_data.about}}</p>
+    <button class="button v-catalog-item__add-to-card-btn" @click="addToCart">Добавить в корзину</button>
   </div>
 </template>
 
@@ -25,8 +25,8 @@ export default {
     }
   },
   methods: {
-    sendDataParent () {
-      this.$emit('sendDataParent', this.product_data.article)
+    addToCart () {
+      this.$emit('addToCart', this.product_data)
     }
   }
 }
@@ -34,9 +34,15 @@ export default {
 
 <style lang="scss">
   .v-catalog-item {
-    flex-basis: 25%;
+    flex-basis: 44%;
     box-shadow: 0 0 8px 0 gray;
     padding: 20px;
-    margin: 20px;
+    background: #e8f8f0;
+    border-radius: 20px;
+    &__name span,
+    &__price span,
+    &__about span {
+      font-weight: 700;
+    }
   }
 </style>

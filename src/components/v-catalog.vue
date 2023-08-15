@@ -1,11 +1,11 @@
 <template>
-  <h1>{{title}}</h1>
   <div class="v-catalog">
+    <h2 class="title-h2">{{title}}</h2>
     <vCatalogItem
       v-for="product in PRODUCTS"
       :key="product.article"
       :product_data="product"
-      @sendDataParent = "showArticleFormChild"
+      @addToCart="addToCart"
     />
   </div>
 </template>
@@ -26,9 +26,9 @@ export default {
     ...mapGetters(['PRODUCTS'])
   },
   methods: {
-    ...mapActions(['GET_PRODUCTS_FROM_API']),
-    showArticleFormChild (data) {
-      console.log(data)
+    ...mapActions(['GET_PRODUCTS_FROM_API', 'ADD_TO_CART']),
+    addToCart (data) {
+      this.ADD_TO_CART(data)
     }
   },
   mounted () {
@@ -43,11 +43,18 @@ export default {
 </script>
 
 <style>
+.title-h2 {
+  color: #333;
+  margin: 0;
+  font-size: 40px;
+  width: 100%;
+}
 .v-catalog {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   align-items: center;
+  gap: 20px;
 }
 
 </style>
