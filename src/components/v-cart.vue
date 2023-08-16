@@ -1,9 +1,21 @@
 <template>
   <div class="v-cart">
+
+    <router-link :to="{ name: 'catalog' }">
+      <div class="v-catalog__link_to_cart">
+        <img src="../assets/images/icon-cart.png" alt="" class="cart-img">
+        {{ CART.length }}</div>
+      <button class="button button_back">В каталог</button>
+    </router-link>
+
     <h2 class="title-h2">{{title}}</h2>
+    <div v-if="!CART.length">
+      <p>В корзине пусто :(</p>
+      <span>Вы можете вернуться в каталог и выбрать товар</span>
+    </div>
     <vCartItem
     class="v-cart__item"
-    v-for="(item, index) in cart_data"
+    v-for="(item, index) in CART"
     :key="item.article"
     :cart_item_data="item"
     @deleteFromCart="deleteFromCart(index)"
@@ -13,7 +25,7 @@
 
 <script>
 import vCartItem from './v-cart-item.vue'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'v-cart',
@@ -32,6 +44,9 @@ export default {
     return {
       title: 'Корзина'
     }
+  },
+  computed: {
+    ...mapGetters(['CART'])
   },
   methods: {
     ...mapActions(['DELETE_FROM_CART']),
@@ -56,5 +71,8 @@ export default {
       background: #fff7da;
       border-radius: 20px;
     }
+  }
+  .button_back {
+    margin: 0 auto;
   }
 </style>
